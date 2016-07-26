@@ -1,14 +1,14 @@
 package com.vipul.xyzreader.ui;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
@@ -34,8 +34,8 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
 
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
-    private View mUpButtonContainer;
-    private View mUpButton;
+    /*private View mUpButtonContainer;
+    private View mUpButton;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +60,9 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
             @Override
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
-                mUpButton.animate()
+                /*mUpButton.animate()
                         .alpha((state == ViewPager.SCROLL_STATE_IDLE) ? 1f : 0f)
-                        .setDuration(300);
+                        .setDuration(300);*/
             }
 
             @Override
@@ -75,7 +75,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
             }
         });
 
-        mUpButtonContainer = findViewById(R.id.up_container);
+        /*mUpButtonContainer = findViewById(R.id.up_container);
 
         mUpButton = findViewById(R.id.action_up);
         mUpButton.setOnClickListener(new View.OnClickListener() {
@@ -83,10 +83,10 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
             public void onClick(View view) {
                 onSupportNavigateUp();
             }
-        });
+        });*/
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mUpButtonContainer.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            /*mUpButtonContainer.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
                 @Override
                 public WindowInsets onApplyWindowInsets(View view, WindowInsets windowInsets) {
                     view.onApplyWindowInsets(windowInsets);
@@ -95,7 +95,7 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
                     updateUpButtonPosition();
                     return windowInsets;
                 }
-            });
+            });*/
         }
 
         if (savedInstanceState == null) {
@@ -146,8 +146,8 @@ public class ArticleDetailActivity extends AppCompatActivity implements LoaderMa
     }
 
     private void updateUpButtonPosition() {
-        int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
-        mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));
+        /*int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
+        mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));*/
     }
 
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
