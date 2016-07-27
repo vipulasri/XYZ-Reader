@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#fee678</color>
-    <color name="colorPrimaryDark">#ccb861</color>
+    <color name="colorPrimary">#95d7ae</color>
+    <color name="colorPrimaryDark">#69c68c</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorWhite">#fff</color>
@@ -24,6 +24,6 @@
     <color name="colorDivider">#1f000000</color> <!-- 12% black -->
 
     <color name="colorBackgroundLight">@color/colorGrey50</color> <!-- grey 50 -->
-    <color name="colorBackground">@color/colorGrey200</color> <!-- grey 200 -->
+    <color name="colorBackground">@color/colorGrey300</color> <!-- grey 300 -->
     <color name="background_dark">#ff333333</color>
 </resources>

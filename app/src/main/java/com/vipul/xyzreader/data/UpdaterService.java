@@ -12,7 +12,7 @@ import android.os.RemoteException;
 import android.text.format.Time;
 import android.util.Log;
 
-import com.example.xyzreader.remote.RemoteEndpointUtil;
+import com.vipul.xyzreader.remote.RemoteEndpointUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,9 +24,9 @@ public class UpdaterService extends IntentService {
     private static final String TAG = "UpdaterService";
 
     public static final String BROADCAST_ACTION_STATE_CHANGE
-            = "com.example.xyzreader.intent.action.STATE_CHANGE";
+            = "com.vipul.xyzreader.intent.action.STATE_CHANGE";
     public static final String EXTRA_REFRESHING
-            = "com.example.xyzreader.intent.extra.REFRESHING";
+            = "com.vipul.xyzreader.intent.extra.REFRESHING";
 
     public UpdaterService() {
         super(TAG);
