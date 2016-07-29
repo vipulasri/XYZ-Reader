@@ -9,19 +9,18 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="@dimen/detail_image_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleMargin="@dimen/activity_horizontal_margin"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:toolbarId="@+id/toolbar">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/photo"
@@ -54,58 +53,72 @@
         android:id="@+id/movie_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
+        android:padding="@dimen/detail_body_padding"
         android:clipToPadding="false"
+        android:background="@color/colorWhite"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/article_title"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:maxLines="1"
+                android:textColor="@color/primaryText"
+                android:visibility="visible"
+                android:textStyle="bold"
+                tools:text="Hello"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/article_title"
-                    style="@style/TextAppearance.AppCompat.Headline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textColor="@color/primaryText"
-                    android:visibility="visible"
-                    tools:text="Hello"/>
-
-                <TextView
-                    android:id="@+id/article_author"
-                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:id="@+id/article_date"
+                    style="@style/TextAppearance.AppCompat.Caption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/tertiaryText"
                     tools:text="Hello"/>
 
-            </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/tertiaryText"
+                    android:text="@string/solid_circle"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/colorDivider"/>
+                <TextView
+                    android:id="@+id/article_author"
+                    style="@style/TextAppearance.AppCompat.Caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/tertiaryText"
+                    tools:text="by charles"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/article_body"
-                style="?android:attr/textAppearanceMedium"
+                style="@style/TextAppearance.AppCompat.Subhead"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:autoLink="web"
                 android:linksClickable="true"
-                android:textColor="@android:color/black"
-                tools:text="Hello"/>
+                android:textColor="@color/secondaryText"
+                tools:text="@string/lorem_ipsum"/>
 
         </LinearLayout>
 
@@ -124,7 +137,7 @@
         app:rippleColor="@android:color/white"
         app:fabSize="normal"
         app:borderWidth="0dp"
-        app:elevation="4dp"
-        app:pressedTranslationZ="12dp" />
+        app:elevation="@dimen/fab_elevation"
+        app:pressedTranslationZ="@dimen/fab_press_translation_z" />
 
 </android.support.design.widget.CoordinatorLayout>

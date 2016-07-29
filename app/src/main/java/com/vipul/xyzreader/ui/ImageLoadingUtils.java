@@ -1,14 +1,20 @@
 package com.vipul.xyzreader.ui;
 
+import android.graphics.drawable.Animatable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 
 import com.facebook.binaryresource.BinaryResource;
 import com.facebook.cache.common.CacheKey;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
 import com.facebook.imagepipeline.core.ImagePipelineFactory;
+import com.facebook.imagepipeline.image.ImageInfo;
+import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
@@ -17,10 +23,12 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
  */
 public class ImageLoadingUtils {
 
+    private static ImageRequest imageRequest;
+
     public static void load(final SimpleDraweeView imageView, final String url)
     {
 
-        ImageRequest imageRequest= ImageRequest.fromUri(url);
+        imageRequest= ImageRequest.fromUri(url);
         CacheKey cacheKey= DefaultCacheKeyFactory.getInstance()
                 .getEncodedCacheKey(imageRequest, null);
         BinaryResource resource = ImagePipelineFactory.getInstance()
@@ -44,16 +52,21 @@ public class ImageLoadingUtils {
 
         Uri uri = Uri.parse(url);
 
-        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+        imageRequest = ImageRequestBuilder.newBuilderWithSource(uri)
                 .setProgressiveRenderingEnabled(true)
                 .build();
 
         DraweeController draweeController = Fresco.newDraweeControllerBuilder()
                 .setUri(uri)
-                .setImageRequest(request)
+                .setImageRequest(imageRequest)
                 .setTapToRetryEnabled(true)
                 .build();
 
         imageView.setController(draweeController);
     }
+
+    public static ImageRequest getCurrentImageRequest() {
+        return imageRequest;
+    }
+
 }

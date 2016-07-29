@@ -23,8 +23,9 @@ import com.vipul.xyzreader.data.ItemsContract;
  */
 public class ArticleDetailActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    public final static String EXTRA_SELECTED_ID = "EXTRA_SELECTED_ID";
+
     private Cursor mCursor;
-    private long mStartId;
     private long mSelectedItemId;
     private ViewPager mPager;
     private MyPagerAdapter mPagerAdapter;
@@ -32,11 +33,15 @@ public class ArticleDetailActivity extends BaseActivity implements LoaderManager
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_article_detail);
 
-        if(getSupportActionBar()!=null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (savedInstanceState == null) {
+            if (getIntent() != null && getIntent().getData() != null) {
+                mSelectedItemId = ItemsContract.Items.getItemId(getIntent().getData());
+            }
+        }
+        else {
+            mSelectedItemId = savedInstanceState.getLong(EXTRA_SELECTED_ID);
         }
 
         getSupportLoaderManager().initLoader(0, null, this);
@@ -48,13 +53,10 @@ public class ArticleDetailActivity extends BaseActivity implements LoaderManager
                 .applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics()));
         mPager.setPageMarginDrawable(new ColorDrawable(0x22000000));
 
-        mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageScrollStateChanged(int state) {
                 super.onPageScrollStateChanged(state);
-                /*mUpButton.animate()
-                        .alpha((state == ViewPager.SCROLL_STATE_IDLE) ? 1f : 0f)
-                        .setDuration(300);*/
             }
 
             @Override
@@ -62,27 +64,14 @@ public class ArticleDetailActivity extends BaseActivity implements LoaderManager
                 if (mCursor != null) {
                     mCursor.moveToPosition(position);
                 }
-                mSelectedItemId = mCursor.getLong(ArticleLoader.Query._ID);
-                updateUpButtonPosition();
             }
         });
+    }
 
-        /*mUpButtonContainer = findViewById(R.id.up_container);
-
-        mUpButton = findViewById(R.id.action_up);
-        mUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onSupportNavigateUp();
-            }
-        });*/
-
-        if (savedInstanceState == null) {
-            if (getIntent() != null && getIntent().getData() != null) {
-                mStartId = ItemsContract.Items.getItemId(getIntent().getData());
-                mSelectedItemId = mStartId;
-            }
-        }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(EXTRA_SELECTED_ID, mSelectedItemId);
     }
 
     @Override
@@ -96,18 +85,18 @@ public class ArticleDetailActivity extends BaseActivity implements LoaderManager
         mPagerAdapter.notifyDataSetChanged();
 
         // Select the start ID
-        if (mStartId > 0) {
+        if (mSelectedItemId > 0) {
             mCursor.moveToFirst();
             // TODO: optimize
             while (!mCursor.isAfterLast()) {
-                if (mCursor.getLong(ArticleLoader.Query._ID) == mStartId) {
+                if (mCursor.getLong(ArticleLoader.Query._ID) == mSelectedItemId) {
                     final int position = mCursor.getPosition();
                     mPager.setCurrentItem(position, false);
                     break;
                 }
                 mCursor.moveToNext();
             }
-            mStartId = 0;
+            mSelectedItemId = 0;
         }
     }
 
@@ -117,24 +106,9 @@ public class ArticleDetailActivity extends BaseActivity implements LoaderManager
         mPagerAdapter.notifyDataSetChanged();
     }
 
-
-    private void updateUpButtonPosition() {
-        /*int upButtonNormalBottom = mTopInset + mUpButton.getHeight();
-        mUpButton.setTranslationY(Math.min(mSelectedItemUpButtonFloor - upButtonNormalBottom, 0));*/
-    }
-
     private class MyPagerAdapter extends FragmentStatePagerAdapter {
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            super.setPrimaryItem(container, position, object);
-            ArticleDetailFragment fragment = (ArticleDetailFragment) object;
-            if (fragment != null) {
-                updateUpButtonPosition();
-            }
         }
 
         @Override

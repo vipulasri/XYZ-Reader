@@ -9,10 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +21,6 @@ import com.vipul.xyzreader.R;
 import com.vipul.xyzreader.data.ArticleLoader;
 import com.vipul.xyzreader.data.ItemsContract;
 import com.vipul.xyzreader.data.UpdaterService;
-import com.vipul.xyzreader.utils.ImageLoadingUtils;
 
 /**
  * An activity representing a list of Articles. This activity has different presentations for
